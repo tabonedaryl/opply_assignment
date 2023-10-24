@@ -24,3 +24,11 @@ input {
     }
 }
 
+.loading-screen {
+    @apply h-screen w-full bg-primary text-white flex;
+
+    & > p {
+        @apply text-lg font-bold m-auto text-center;
+    }
+}
+

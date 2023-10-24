@@ -44,7 +44,7 @@ export default {
 </script>
 
 <template>
-    <p v-if="isLoading || !supplier">Loading ...</p>
+    <div v-if="isLoading || !supplier" class="loading-screen"><p>Loading...</p></div>
     <div v-else class="supplier-page page">
         <div class="name-row">
             <font-awesome-icon class="back-icon" icon="fa-solid fa-arrow-left" @click="goBack"/>
