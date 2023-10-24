@@ -2,9 +2,10 @@
     import {useUserStore} from "./stores/user";
     import {useRouter} from "vue-router";
     import Sidebar from "./components/Sidebar.vue";
+    import MenuHeader from "./components/MenuHeader.vue";
 
     export default {
-        components: {Sidebar},
+        components: {MenuHeader, Sidebar},
         setup() {
             const store = useUserStore();
             const router = useRouter();
@@ -16,6 +17,7 @@
 
 <template>
     <div class="app-container">
+        <menu-header class="header" v-if="store.token"/>
         <sidebar class="sidebar" v-if="store.token"/>
         <router-view/>
     </div>
@@ -23,10 +25,26 @@
 
 <style scoped>
     .app-container {
-        @apply flex flex-row;
+        @apply flex flex-col relative;
+
+        @screen md {
+            @apply flex-row;
+        }
+
+        & > .header {
+            @apply w-full h-16;
+
+            @screen md {
+                @apply hidden;
+            }
+        }
 
         & > .sidebar {
-            @apply h-screen;
+            @apply hidden;
+
+            @screen md {
+                @apply flex h-screen w-64;
+            }
         }
     }
 </style>

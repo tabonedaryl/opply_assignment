@@ -30,7 +30,6 @@ export default {
 
             axios.get('suppliers/', {params: params})
                 .then((response) => {
-                    console.log(response.data)
                     suppliers.value = response.data.results;
                     next.value = response.data.next;
                     previous.value = response.data.previous;
@@ -77,7 +76,11 @@ export default {
         @apply flex flex-col;
 
         & > h1 {
-            @apply mb-12;
+            @apply mb-8;
+
+            @screen md {
+                @apply mb-12;
+            }
         }
 
         & > .data-table {
@@ -88,10 +91,10 @@ export default {
             @apply flex flex-row ml-auto mt-8;
 
             & > button {
-                @apply text-gray-800 ml-4 cursor-pointer;
+                @apply text-gray-800 ml-4 cursor-pointer font-bold text-primary;
 
                 &:hover {
-                    @apply text-primary;
+                    @apply text-primary-over;
                 }
 
                 &:disabled {
