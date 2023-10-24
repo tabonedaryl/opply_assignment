@@ -1,0 +1,8 @@
+.button[type='submit'] {
+    @apply bg-secondary text-white rounded-lg text-lg font-bold uppercase py-3;
+
+    &:hover {
+         @apply bg-secondary-over;
+         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+     }
+}
