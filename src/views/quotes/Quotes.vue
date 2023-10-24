@@ -1,16 +1,151 @@
+<script lang="ts">
+import {ref, reactive, onMounted, inject} from 'vue';
+import axios from "axios";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import {useRouter} from "vue-router";
+import {useUserStore} from "../../stores/user";
+import { VueGoodTable } from 'vue-good-table-next';
+
+export default {
+    components: { VueGoodTable },
+    setup() {
+        const moment = inject('moment');
+
+        const quotes = ref([]); //quotes array
+        const next = ref(); //next page
+        const previous = ref(); //previous page
+
+        function createdFn(row) {
+            return moment(row).format('DD/MM/YYYY HH:mm');
+        }
+
+        //server params
+        const params = reactive({
+            page: 1
+        });
+
+        const isLoading = ref(false); //is loading variable
+
+        //columns for vue-good-table
+
+        const columns = reactive([
+            {
+                label: 'ID',
+                field: 'id',
+                sortable: false,
+            },
+            {
+                label: 'Supplier ID',
+                field: 'supplier_id',
+                sortable: false,
+            },
+            {
+                label: 'Title',
+                field: 'title',
+                sortable: false,
+            },
+            {
+                label: 'Amount',
+                field: 'amount',
+                sortable: false,
+            },
+            {
+                label: 'Created',
+                field: createdFn,
+                sortable: false,
+            },
+        ]);
+
+        //function to get quotes
+        function getQuotes() {
+            //set is loading variable to true
+            isLoading.value = true;
+
+            //get request to get quotes from API
+            axios.get('quotes/', {params: params})
+                .then((response) => {
+                    //filling quotes array with data from API
+
+                    quotes.value = response.data.results;
+
+                    //next page variable
+                    next.value = response.data.next;
+
+                    //previous page variable
+                    previous.value = response.data.previous;
+
+                    //set is loading variable to false
+                    isLoading.value = false;
+                })
+                .catch(e => {
+                    //set is loading variable to false
+                    isLoading.value = false;
+
+                    //toast to notify user that API call has failed
+                    toast.error('Failed to get quotes!', {autoClose: 2000, position: "bottom-left"});
+                })
+        }
+
+        function previousPage() {
+            params.page--; //decrement page count when function is called
+            getQuotes(); //get quotes after page count is decremented
+        }
+
+        function nextPage() {
+            params.page++; //increment page count when function is called
+            getQuotes(); //get quotes after page count is incremented
+        }
+
+        onMounted(getQuotes); //get quotes on mounted
+
+        return { isLoading, columns, quotes, previous, next, previousPage, nextPage };
+    }
+}
+</script>
+
 <template>
     <div class="quotes-page page">
         <h1>Quotes</h1>
 
+        <vue-good-table
+            :columns="columns"
+            :rows="quotes"
+        />
+
+        <div class="pagination-container">
+            <button @click="previousPage" :disabled="!previous">Previous</button>
+            <button @click="nextPage" :disabled="!next">Next</button>
+        </div>
     </div>
 </template>
 
-<script>
-export default {
-    name: "Quotes"
-}
-</script>
-
 <style scoped>
+.quotes-page {
+    @apply flex flex-col overflow-x-scroll;
 
+    & > h1 {
+        @apply mb-8;
+
+        @screen md {
+            @apply mb-12;
+        }
+    }
+
+    & > .pagination-container {
+        @apply flex flex-row ml-auto mt-8;
+
+        & > button {
+            @apply text-gray-800 ml-4 cursor-pointer font-bold text-primary;
+
+            &:hover {
+                @apply text-primary-over;
+            }
+
+            &:disabled {
+                @apply text-gray-400 cursor-not-allowed;
+            }
+        }
+    }
+}
 </style>
