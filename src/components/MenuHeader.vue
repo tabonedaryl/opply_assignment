@@ -1,11 +1,13 @@
 <script lang="ts">
 import {watch, ref} from 'vue';
 import {useRoute} from "vue-router";
+import {useUserStore} from "../stores/user";
 
 export default {
     setup() {
         const isOpen = ref(false); //variable to check if menu is open or closed
         const route = useRoute();
+        const store = useUserStore();
 
         //function to toggle menu state
         function toggleMenu() {
@@ -17,7 +19,7 @@ export default {
             isOpen.value = false;
         });
 
-        return { isOpen, toggleMenu }
+        return { store, isOpen, toggleMenu }
     }
 }
 
@@ -34,10 +36,13 @@ export default {
                     <router-link :to="{name: 'suppliers'}">Suppliers</router-link>
                     <router-link :to="{name: 'quotes'}">Quotes</router-link>
                 </ul>
+
+                <button class="log-out" @click="store.logout()">Log Out</button>
             </nav>
         </div>
 
         <img src="opply-logo-white.webp" alt="Logo">
+
     </div>
 </template>
 
@@ -64,17 +69,22 @@ export default {
                 @apply mx-auto;
 
                 & > ul {
-                    @apply grid gap-y-6 text-center;
+                    @apply grid gap-y-6;
 
                     & > a {
-                        @apply text-white font-semibold w-min border-b-2 border-primary pb-1;
+                        @apply text-white font-semibold w-min border-b-2 border-primary pb-1 mx-auto;
 
                         &.router-link-active {
                             @apply border-white;
                         }
                     }
                 }
+
+                & > .log-out {
+                    @apply font-bold text-center mx-auto text-white mt-8;
+                }
             }
+
         }
 
         & > img {

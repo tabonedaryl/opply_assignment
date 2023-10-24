@@ -1,5 +1,6 @@
 // @ts-check
 import { defineStore } from 'pinia';
+import { useRoute, useRouter } from 'vue-router';
 
 interface State {
     token: string
@@ -17,9 +18,11 @@ export const useUserStore = defineStore('user', {
             this.$patch({token: token});
             localStorage.setItem('token', token);
         },
-        async logout(state) {
-            //clearing the token so that the user is logged out
-            this.$patch({token: ''});
+        async logout() {
+            const router = useRouter();
+            this.$patch({token: ''}); //clearing the token from state
+            localStorage.setItem('token', ''); //clearing the token from local storage
+            this.router.push('/login'); //pushing to login
         },
     },
 });

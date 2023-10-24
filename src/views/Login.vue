@@ -12,11 +12,12 @@ export default {
         const store = useUserStore();
         const router = useRouter();
 
+        //function to submit user data
         function submit() {
             axios.post('https://february-21.herokuapp.com/api-token-auth/', user)
                 .then((response) => {
-                    store.setToken(response.data.token);
-                    router.push({name: 'suppliers'});
+                    store.setToken(response.data.token); //set token in store
+                    router.push({name: 'suppliers'}); //go to suppliers page
                 })
                 .catch(e => {
                     if(e.response.status === 400);
@@ -35,7 +36,7 @@ export default {
             <img src="opply-logo-white.webp" alt="Logo">
 
             <form class="form-card" @submit.prevent="submit">
-                <input id="username" type="text" placeholder="Username" required v-model="user.username">
+                <input type="text" placeholder="Username" required v-model="user.username">
 
                 <input type="password" placeholder="Password" required v-model="user.password">
 
@@ -49,20 +50,28 @@ export default {
 
 <style scoped>
 .login-page {
-    @apply flex h-screen w-full bg-primary;
+    @apply flex h-screen w-full bg-primary px-6;
 
     & > .form-wrapper {
-        @apply grid gap-y-8 m-auto text-center;
+        @apply grid gap-y-8 m-auto text-center w-full max-w-md;
 
         & > img {
-            @apply h-16 mx-auto;
+            @apply h-12 mx-auto;
+
+            @screen md {
+                @apply h-16;
+            }
         }
 
         & > .form-card {
-            @apply grid grid-cols-1 gap-y-6 bg-white rounded-xl h-min p-8;
+            @apply grid grid-cols-1 gap-y-6 bg-white rounded-xl h-min p-6;
+
+            @screen md {
+                @apply p-8;
+            }
 
             & > input {
-                @apply w-96 border-2 border-gray-300 rounded py-3 px-4;
+                @apply w-full border-2 border-gray-300 rounded py-3 px-4;
 
                 &:focus {
                     @apply border-primary;

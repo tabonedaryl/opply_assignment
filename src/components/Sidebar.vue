@@ -1,6 +1,14 @@
 <script lang="ts">
 import {ref} from 'vue';
+import {useUserStore} from "../stores/user";
 
+export default {
+    setup() {
+        const store = useUserStore();
+
+        return { store };
+    }
+}
 </script>
 
 <template>
@@ -13,6 +21,8 @@ import {ref} from 'vue';
         </nav>
 
         <img src="opply-logo-white.webp" alt="Logo">
+
+        <button class="log-out" @click="store.logout()">Log Out</button>
     </div>
 </template>
 
@@ -36,6 +46,10 @@ import {ref} from 'vue';
 
         & > img {
             @apply h-8 mt-auto mx-auto;
+        }
+
+        & > .log-out {
+            @apply font-bold text-center mx-auto text-white mt-4;
         }
     }
 </style>

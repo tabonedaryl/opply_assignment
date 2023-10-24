@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import {createApp, markRaw} from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import './css/style.css';
@@ -22,6 +22,10 @@ import {faX, faBars, faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 library.add(faX, faBars, faArrowLeft)
 
 const pinia = createPinia();
+
+pinia.use(({ store }) => {
+    store.router = markRaw(router)
+})
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.headers['Content-Type'] = 'application/json';
