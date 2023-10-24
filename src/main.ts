@@ -5,6 +5,9 @@ import './css/style.css';
 import router from "./router";
 import axios from 'axios';
 import {useUserStore} from "./stores/user";
+import VueGoodTablePlugin from 'vue-good-table-next';
+import 'vue-good-table-next/dist/vue-good-table-next.css'
+import moment from 'moment';
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -36,5 +39,7 @@ const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.use(pinia);
 app.use(router, axios);
+app.use(VueGoodTablePlugin);
+app.provide("moment", moment);
 app.mount('#app');
 
