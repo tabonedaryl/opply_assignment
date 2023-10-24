@@ -2,7 +2,8 @@ import {useUserStore} from "./stores/user.ts";
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
-
+import Suppliers from "./views/suppliers/Suppliers.vue";
+import Quotes from "./views/quotes/Quotes.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -25,6 +26,22 @@ const router = createRouter({
             component: Register,
             meta: {
                 auth: false,
+            }
+        },
+        {
+            path: '/suppliers',
+            name: 'suppliers',
+            component: Suppliers,
+            meta: {
+                auth: true,
+            }
+        },
+        {
+            path: '/quotes',
+            name: 'quotes',
+            component: Quotes,
+            meta: {
+                auth: true,
             }
         }
     ]

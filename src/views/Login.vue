@@ -4,19 +4,23 @@ import axios from "axios";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import {useUserStore} from "../stores/user";
+import {useRouter} from "vue-router";
 
 export default {
     setup() {
         const user = reactive({username: '', password: ''});
         const store = useUserStore();
+        const router = useRouter();
 
         function submit() {
             axios.post('https://february-21.herokuapp.com/api-token-auth/', user)
                 .then((response) => {
                     store.setToken(response.data.token);
+                    router.push({name: 'suppliers'});
                 })
                 .catch(e => {
-                    toast.error('Invalid credentials!', {autoClose: 2000, position: "bottom-left"});
+                    if(e.response.status === 400);
+                        toast.error('Invalid credentials!', {autoClose: 2000, position: "bottom-left"});
                 })
         }
 

@@ -1,7 +1,32 @@
-<script setup lang="ts"></script>
+<script lang="ts">
+    import {useUserStore} from "./stores/user";
+    import {useRouter} from "vue-router";
+    import Sidebar from "./components/Sidebar.vue";
+
+    export default {
+        components: {Sidebar},
+        setup() {
+            const store = useUserStore();
+            const router = useRouter();
+
+            return { store, router };
+        }
+    }
+</script>
 
 <template>
-    <router-view/>
+    <div class="app-container">
+        <sidebar class="sidebar" v-if="store.token"/>
+        <router-view/>
+    </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+    .app-container {
+        @apply flex flex-row;
+
+        & > .sidebar {
+            @apply h-screen;
+        }
+    }
+</style>
