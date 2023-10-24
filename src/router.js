@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import Suppliers from "./views/suppliers/Suppliers.vue";
+import Supplier from "./views/suppliers/Supplier.vue";
 import Quotes from "./views/quotes/Quotes.vue";
 
 const router = createRouter({
@@ -32,6 +33,14 @@ const router = createRouter({
             path: '/suppliers',
             name: 'suppliers',
             component: Suppliers,
+            meta: {
+                auth: true,
+            }
+        },
+        {
+            path: '/suppliers/:id',
+            name: 'supplier',
+            component: Supplier,
             meta: {
                 auth: true,
             }

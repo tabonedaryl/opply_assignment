@@ -3,8 +3,6 @@ import {ref, reactive, onMounted, inject} from 'vue';
 import axios from "axios";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-import {useRouter} from "vue-router";
-import {useUserStore} from "../../stores/user";
 import { VueGoodTable } from 'vue-good-table-next';
 
 export default {
@@ -28,7 +26,6 @@ export default {
         const isLoading = ref(false); //is loading variable
 
         //columns for vue-good-table
-
         const columns = reactive([
             {
                 label: 'ID',
@@ -59,28 +56,18 @@ export default {
 
         //function to get quotes
         function getQuotes() {
-            //set is loading variable to true
-            isLoading.value = true;
+            isLoading.value = true; //setting is loading variable to true
 
             //get request to get quotes from API
             axios.get('quotes/', {params: params})
                 .then((response) => {
-                    //filling quotes array with data from API
-
-                    quotes.value = response.data.results;
-
-                    //next page variable
-                    next.value = response.data.next;
-
-                    //previous page variable
-                    previous.value = response.data.previous;
-
-                    //set is loading variable to false
-                    isLoading.value = false;
+                    quotes.value = response.data.results; //setting quotes array with data from API
+                    next.value = response.data.next; //next page variable
+                    previous.value = response.data.previous; //previous page variable
+                    isLoading.value = false; //set is loading variable to false
                 })
                 .catch(e => {
-                    //set is loading variable to false
-                    isLoading.value = false;
+                    isLoading.value = false; //set is loading variable to false
 
                     //toast to notify user that API call has failed
                     toast.error('Failed to get quotes!', {autoClose: 2000, position: "bottom-left"});

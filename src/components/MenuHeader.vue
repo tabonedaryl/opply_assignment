@@ -4,13 +4,15 @@ import {useRoute} from "vue-router";
 
 export default {
     setup() {
-        const isOpen = ref(false);
+        const isOpen = ref(false); //variable to check if menu is open or closed
         const route = useRoute();
 
+        //function to toggle menu state
         function toggleMenu() {
             isOpen.value = !isOpen.value;
         }
 
+        //watcher to close menu on route navigation
         watch(route, (currentValue, oldValue) => {
             isOpen.value = false;
         });

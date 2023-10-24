@@ -4,7 +4,6 @@ import axios from "axios";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import {useRouter} from "vue-router";
-import {useUserStore} from "../../stores/user";
 import { VueGoodTable } from 'vue-good-table-next';
 
 export default {
@@ -44,32 +43,27 @@ export default {
 
         //function to get suppliers
         function getSuppliers() {
-            //set is loading variable to true
-            isLoading.value = true;
+            isLoading.value = true; //setting is loading variable to true
 
             //get request to get suppliers from API
             axios.get('suppliers/', {params: params})
                 .then((response) => {
-                    //filling suppliers array with data from API
-
-                    suppliers.value = response.data.results;
-
-                    //next page variable
-                    next.value = response.data.next;
-
-                    //previous page variable
-                    previous.value = response.data.previous;
-
-                    //set is loading variable to false
-                    isLoading.value = false;
+                    suppliers.value = response.data.results; //setting suppliers array with data from API
+                    next.value = response.data.next; //next page variable
+                    previous.value = response.data.previous; //previous page variable
+                    isLoading.value = false; //setting is loading variable to false
                 })
                 .catch(e => {
-                    //set is loading variable to false
-                    isLoading.value = false;
+                    isLoading.value = false; //setting is loading variable to false
 
                     //toast to notify user that API call has failed
                     toast.error('Failed to get suppliers!', {autoClose: 2000, position: "bottom-left"});
                 })
+        }
+
+        function onRowClick(params) {
+            console.log(params.row.id)
+            router.push(`/suppliers/${params.row.id}`);
         }
 
         function previousPage() {
@@ -84,7 +78,7 @@ export default {
 
         onMounted(getSuppliers); //get suppliers on mounted
 
-        return { isLoading, columns, suppliers, previous, next, previousPage, nextPage };
+        return { isLoading, columns, suppliers, onRowClick, previous, next, previousPage, nextPage };
     }
 }
 </script>
@@ -96,6 +90,7 @@ export default {
         <vue-good-table
             :columns="columns"
             :rows="suppliers"
+            v-on:row-click="onRowClick"
         />
 
         <div class="pagination-container">
