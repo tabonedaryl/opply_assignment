@@ -1,24 +1,26 @@
 <script lang="ts">
     import {useUserStore} from "./stores/user";
-    import {useRouter} from "vue-router";
+    import {useRoute, useRouter} from "vue-router";
     import Sidebar from "./components/Sidebar.vue";
     import MenuHeader from "./components/MenuHeader.vue";
+    import {onMounted} from "vue";
 
     export default {
         components: {MenuHeader, Sidebar},
         setup() {
             const store = useUserStore();
             const router = useRouter();
+            const route = useRoute();
 
-            return { store, router };
+            return { store, router, route };
         }
     }
 </script>
 
 <template>
     <div class="app-container">
-        <menu-header class="header" v-if="store.token"/>
-        <sidebar class="sidebar" v-if="store.token"/>
+        <menu-header class="header" v-if="route.meta.menu"/>
+        <sidebar class="sidebar" v-if="route.meta.menu"/>
         <router-view class="router-view"/>
     </div>
 </template>

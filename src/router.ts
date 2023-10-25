@@ -19,6 +19,7 @@ const router = createRouter({
             component: Login,
             meta: {
                 auth: false,
+                menu: false, //do not show menu
             }
         },
         {
@@ -27,6 +28,7 @@ const router = createRouter({
             component: Register,
             meta: {
                 auth: false,
+                menu: false, //do not show menu
             }
         },
         {
@@ -35,6 +37,7 @@ const router = createRouter({
             component: Suppliers,
             meta: {
                 auth: true,
+                menu: true, //show menu
             }
         },
         {
@@ -43,6 +46,7 @@ const router = createRouter({
             component: Supplier,
             meta: {
                 auth: true,
+                menu: true, //show menu
             }
         },
         {
@@ -51,6 +55,7 @@ const router = createRouter({
             component: Quotes,
             meta: {
                 auth: true,
+                menu: true, //show menu
             }
         }
     ]
@@ -59,7 +64,7 @@ const router = createRouter({
 router.beforeEach(async (to) => {
     const store = useUserStore();
 
-    //redirect to login if the route requires the user to be logged in and is not logged in
+    //redirect to login if the route requires the user to be logged in and user is not logged in
     if(to.meta.auth && !store.token)
         return '/login';
 });
