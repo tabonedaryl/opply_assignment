@@ -28,7 +28,7 @@ export default {
 
 <style scoped>
     .sidebar-wrapper {
-        @apply flex flex-col shadow bg-primary pt-16 pb-8 px-12;
+        @apply flex flex-col shadow bg-primary pt-16 pb-8 px-12 rounded-r-xl;
 
         & > nav {
             & > ul {

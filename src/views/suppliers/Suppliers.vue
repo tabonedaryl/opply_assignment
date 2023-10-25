@@ -102,7 +102,7 @@ export default {
 
 <style scoped>
     .suppliers-page {
-        @apply flex flex-col overflow-x-scroll;
+        @apply flex flex-col;
 
         & > h1 {
             @apply mb-8;
