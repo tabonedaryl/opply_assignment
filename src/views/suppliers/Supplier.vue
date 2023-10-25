@@ -1,5 +1,5 @@
 <script lang="ts">
-import {ref, reactive, onMounted} from 'vue';
+import {ref, onMounted} from 'vue';
 import axios from "axios";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -24,7 +24,7 @@ export default {
                     supplier.value = response.data; //setting supplier from API data
                     isLoading.value = false; //setting is loading variable to false
                 })
-                .catch(e => {
+                .catch(() => {
                     isLoading.value = false; //setting is loading variable to false
 
                     //toast to notify user that API call has failed

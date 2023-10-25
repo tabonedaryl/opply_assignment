@@ -4,10 +4,8 @@ import axios from "axios";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import {useRouter} from "vue-router";
-import { VueGoodTable } from 'vue-good-table-next';
 
 export default {
-    components: { VueGoodTable },
     setup() {
         const router = useRouter(); //declare router
 
@@ -53,7 +51,7 @@ export default {
                     previous.value = response.data.previous; //previous page variable
                     isLoading.value = false; //setting is loading variable to false
                 })
-                .catch(e => {
+                .catch(() => {
                     isLoading.value = false; //setting is loading variable to false
 
                     //toast to notify user that API call has failed
@@ -61,8 +59,7 @@ export default {
                 })
         }
 
-        function onRowClick(params) {
-            console.log(params.row.id)
+        function onRowClick(params:any) {
             router.push(`/suppliers/${params.row.id}`);
         }
 

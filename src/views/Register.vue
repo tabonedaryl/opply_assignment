@@ -1,5 +1,5 @@
 <script lang="ts">
-import {ref, reactive} from 'vue';
+import {reactive} from 'vue';
 import axios from "axios";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -13,10 +13,10 @@ export default {
         //function to submit user data
         function submit() {
             axios.post('https://february-21.herokuapp.com/api/v1/users/', user)
-                .then((response) => {
+                .then(() => {
                     router.push({name: 'login'}); //go to suppliers page
                 })
-                .catch(e => {
+                .catch(() => {
                     toast.error('Failed to create user!', {autoClose: 2000, position: "bottom-left"});
                 })
         }
@@ -29,7 +29,7 @@ export default {
 <template>
     <div class="register-page">
         <div class="form-wrapper">
-            <img src="opply-logo-white.webp" alt="Logo">
+            <img src="/opply-logo-white.webp" alt="Logo">
 
             <form class="form-card" @submit.prevent="submit">
                 <input type="text" placeholder="First name" required v-model="user.first_name">
