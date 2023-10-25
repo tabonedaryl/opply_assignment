@@ -35,9 +35,9 @@ export default {
                 <ul>
                     <router-link :to="{name: 'suppliers'}">Suppliers</router-link>
                     <router-link :to="{name: 'quotes'}">Quotes</router-link>
-                </ul>
 
-                <button class="log-out" @click="store.logout()">Log Out</button>
+                    <button class="log-out" @click="store.logout()">Log Out</button>
+                </ul>
             </nav>
         </div>
 
@@ -78,13 +78,12 @@ export default {
                             @apply border-white;
                         }
                     }
-                }
 
-                & > .log-out {
-                    @apply font-bold text-center mx-auto text-white mt-8;
+                    & > .log-out {
+                        @apply font-bold text-center mx-auto text-white mt-8;
+                    }
                 }
             }
-
         }
 
         & > img {
