@@ -1,5 +1,4 @@
 <script lang="ts">
-import {ref} from 'vue';
 import {useUserStore} from "../stores/user";
 
 export default {
@@ -20,7 +19,7 @@ export default {
             </ul>
         </nav>
 
-        <img src="opply-logo-white.webp" alt="Logo">
+        <img src="/opply-logo-white.webp" alt="Logo">
 
         <button class="log-out" @click="store.logout()">Log Out</button>
     </div>

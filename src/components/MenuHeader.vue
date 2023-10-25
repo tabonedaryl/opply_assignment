@@ -15,7 +15,7 @@ export default {
         }
 
         //watcher to close menu on route navigation
-        watch(route, (currentValue, oldValue) => {
+        watch(route, () => {
             isOpen.value = false;
         });
 
@@ -41,7 +41,7 @@ export default {
             </nav>
         </div>
 
-        <img src="opply-logo-white.webp" alt="Logo">
+        <img src="/opply-logo-white.webp" alt="Logo">
 
     </div>
 </template>

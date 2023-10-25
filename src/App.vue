@@ -19,7 +19,7 @@
     <div class="app-container">
         <menu-header class="header" v-if="store.token"/>
         <sidebar class="sidebar" v-if="store.token"/>
-        <router-view/>
+        <router-view class="router-view"/>
     </div>
 </template>
 
@@ -45,6 +45,10 @@
             @screen md {
                 @apply flex h-screen w-64;
             }
+        }
+
+        & > .router-view {
+            @apply overflow-y-scroll h-screen;
         }
     }
 </style>
