@@ -21,14 +21,20 @@ To get a local copy up and running follow these simple steps:
 ### Installation
 
 1. Add API URL "https://february-21.herokuapp.com/api/v1/" to .env
+   ```sh
+   VITE_API_URL="https://february-21.herokuapp.com/api/v1/"
+   ```
+
 2. Clone the repo
    ```sh
    git clone https://github.com/tabonedaryl/opply_assignment.git
    ```
+   
 3. Install NPM packages
    ```sh
    npm install
    ```
+   
 4. Run
    ```sh
    npm run dev
