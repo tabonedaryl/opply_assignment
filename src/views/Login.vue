@@ -1,5 +1,5 @@
 <script lang="ts">
-import {ref, reactive} from 'vue';
+import {reactive} from 'vue';
 import axios from "axios";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -20,7 +20,7 @@ export default {
                     router.push({name: 'suppliers'}); //go to suppliers page
                 })
                 .catch(e => {
-                    if(e.response.status === 400);
+                    if(e.response.status === 400)
                         toast.error('Invalid credentials!', {autoClose: 2000, position: "bottom-left"});
                 })
         }
@@ -33,7 +33,7 @@ export default {
 <template>
     <div class="login-page">
         <div class="form-wrapper">
-            <img src="opply-logo-white.webp" alt="Logo">
+            <img src="/opply-logo-white.webp" alt="Logo">
 
             <form class="form-card" @submit.prevent="submit">
                 <input type="text" placeholder="Username" required v-model="user.username">
