@@ -1,5 +1,5 @@
 <script lang="ts">
-import {ref, reactive, onMounted, inject} from 'vue';
+import {ref, reactive, onMounted} from 'vue';
 import axios from "axios";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -8,14 +8,21 @@ import { VueGoodTable } from 'vue-good-table-next';
 export default {
     components: { VueGoodTable },
     setup() {
-        const moment = inject('moment');
-
         const quotes = ref([]); //quotes array
         const next = ref(); //next page
         const previous = ref(); //previous page
 
-        function createdFn(row) {
-            return moment(row).format('DD/MM/YYYY HH:mm');
+        interface Row {
+            id: number,
+            supplier_id: number,
+            title: string
+            amount: string,
+            created: string
+        }
+
+        function createdFn(row:Row) {
+            const date = new Date(row.created);
+            return date.toLocaleString();
         }
 
         //server params
@@ -66,7 +73,7 @@ export default {
                     previous.value = response.data.previous; //previous page variable
                     isLoading.value = false; //set is loading variable to false
                 })
-                .catch(e => {
+                .catch(() => {
                     isLoading.value = false; //set is loading variable to false
 
                     //toast to notify user that API call has failed
