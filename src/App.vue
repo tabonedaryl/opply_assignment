@@ -3,7 +3,6 @@
     import {useRoute, useRouter} from "vue-router";
     import Sidebar from "./components/Sidebar.vue";
     import MenuHeader from "./components/MenuHeader.vue";
-    import {onMounted} from "vue";
 
     export default {
         components: {MenuHeader, Sidebar},
